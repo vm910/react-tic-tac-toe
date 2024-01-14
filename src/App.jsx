@@ -1,16 +1,39 @@
+import { useState } from "react";
+
 import Player from "./components/Player";
+import GameBoard from "./components/GameBoard";
+import Log from "./components/Log";
 
 function App() {
+  const [activePlayer, setActivePlayer] = useState("X");
+
+  function handlePlayerChange() {
+    setActivePlayer((prevActivePlayer) => {
+      return prevActivePlayer === "X" ? "O" : "X";
+    });
+  }
+
   return (
     <main>
       <div id="game-container">
-        <ol id="players">
-          <Player playerName="1" playerSymbol="X" />
-          <Player playerName="2" playerSymbol="O" />
+        <ol id="players" className="highlight-player">
+          <Player
+            playerName="1"
+            playerSymbol="X"
+            isActive={activePlayer === "X"}
+          />
+          <Player
+            playerName="2"
+            playerSymbol="O"
+            isActive={activePlayer === "O"}
+          />
         </ol>
-        BOARD
+        <GameBoard
+          onSelectSquare={handlePlayerChange}
+          activePlayerSymbol={activePlayer}
+        />
       </div>
-      LOG
+      <Log />
     </main>
   );
 }
