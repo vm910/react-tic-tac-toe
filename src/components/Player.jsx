@@ -6,6 +6,9 @@ export default function Player(props) {
 
   function toggleEditMode() {
     setEditMode((wasEditing) => !wasEditing);
+    if (editMode) {
+      props.onChangeName(props.playerSymbol, playerName);
+    }
   }
 
   function handleChange(e) {
